@@ -4,6 +4,10 @@ import math
 STARTING_FONT_SIZE = 24
 
 def fit_text(text, font_size, height, width, estimate_text_size):
+    # Below 4 it doesn't make any sense, switch strategy to trimming text (TBD)
+    if font_size <= 4:
+        return 4
+
     estimated_width, estimated_height = estimate_text_size(text, font_size)
     if estimated_height > height or estimated_width > width:
         # naive implementation, use divide and conquer instead.
@@ -12,7 +16,6 @@ def fit_text(text, font_size, height, width, estimate_text_size):
         return font_size, estimated_height, estimated_width
 
 def get_positioned_coordinate(point, full_size, content_size, position):
-    print(point, full_size, content_size)
     if position == "start":
         return point
     if position == "center":
@@ -23,13 +26,13 @@ def get_positioned_coordinate(point, full_size, content_size, position):
 def convert(content_obj, options):
     start_x = math.ceil(options["display_width"] * content_obj["x"])
     start_y = math.ceil(options["display_height"] * content_obj["y"])
-    width = math.floor(options["display_width"] * content_obj["w"]) - start_x
-    height = math.floor(options["display_height"] * content_obj["h"]) - start_y
+    width = math.floor(options["display_width"] * content_obj["w"])
+    height = math.floor(options["display_height"] * content_obj["h"])
     content_height = height
     content_width = width
     
     res = { "content": content_obj["content"], "type": content_obj["type"] }
-    if content_obj ["type"] == "text":
+    if content_obj["type"] == "text":
         font_size, content_height, content_width = fit_text(
             content_obj["content"],
             content_obj["font_size"] if "font_size" in content_obj else STARTING_FONT_SIZE, 

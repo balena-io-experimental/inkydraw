@@ -1,4 +1,5 @@
-eve==1.1.4
+fastapi==0.61.1
+uvicorn==0.12.2
 font-source-sans-pro==0.0.1
 inky==1.0.1
 numpy==1.19.2
