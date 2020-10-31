@@ -29,4 +29,4 @@ app = FastAPI()
 def draw(entries: List[DrawEntry]):
     content=map(lambda entry: entry.dict(), entries)
     display.draw(content)
-    return 0
+    return {"statusCode": 0}

@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  dataserver:
+    build: ./dataserver
+    depends_on:
+      - inkydraw
+
+  inkydraw:
+    build: ./inkydraw
+    privileged: true
+    expose:
+      - "8080"
